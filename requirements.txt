@@ -1,0 +1,7 @@
+# This project is built entirely using Python's standard library 
+# to ensure high portability and zero external dependency conflicts.
+# 
+# Standard Library Modules Used:
+# - math
+# - random
+# - tkinter
