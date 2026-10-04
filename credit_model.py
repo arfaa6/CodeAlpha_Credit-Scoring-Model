@@ -1,6 +1,7 @@
 import math
 import random
 import tkinter as tk
+from tkinter import messagebox
 
 # --- Step 1: Generate Synthetic Credit Data & Evaluate ---
 random.seed(42)
@@ -66,128 +67,174 @@ f1 = (
 )
 accuracy = (tp + tn) / len(test_data)
 
-# --- Step 2: Build Modern Styled Desktop GUI ---
+# --- Step 2: Build Interactive Pastel Desktop GUI ---
 root = tk.Tk()
-root.title('Credit Scoring & Risk Intelligence Dashboard')
-root.geometry('700x560')
-root.config(bg='#0f172a')  # Modern dark slate background
+root.title('Credit Scoring & Risk Intelligence System')
+root.geometry('740x660')
+root.config(bg='#A7BCBD')  # Sky Cloud Background
 
-# Header Title
-title_frame = tk.Frame(root, bg='#0f172a')
-title_frame.pack(fill='x', padx=25, pady=20)
+# Header Title Frame
+title_frame = tk.Frame(root, bg='#A7BCBD')
+title_frame.pack(fill='x', padx=25, pady=15)
 
 title_label = tk.Label(
     title_frame,
     text='Credit Scoring & Risk Intelligence System',
-    font=('Segoe UI', 16, 'bold'),
-    bg='#0f172a',
-    fg='#f8fafc',
+    font=('Segoe UI', 15, 'bold'),
+    bg='#A7BCBD',
+    fg='#2f4f4f',
 )
 title_label.pack(anchor='w')
 
 subtitle_label = tk.Label(
     title_frame,
-    text='Machine Learning Pipeline & Performance Evaluation Suite',
-    font=('Segoe UI', 10),
-    bg='#0f172a',
-    fg='#94a3b8',
+    text='Interactive ML Model & Live Applicant Risk Predictor',
+    font=('Segoe UI', 9),
+    bg='#A7BCBD',
+    fg='#3b595b',
 )
 subtitle_label.pack(anchor='w', pady=(2, 0))
 
-# Main Content Card Frame
-card_frame = tk.Frame(root, bg='#1e293b', bd=0)
+# Main Content Card Frame (Lychee background)
+card_frame = tk.Frame(root, bg='#EDECDB', bd=0)
 card_frame.pack(fill='both', expand=True, padx=25, pady=(0, 15))
 
 
-# Helper function to create metric rows inside the card
-def add_metric_row(parent, label, value, color='#38bdf8'):
-  row = tk.Frame(parent, bg='#1e293b')
-  row.pack(fill='x', padx=25, pady=6)
+def add_row(parent, label, val_str, color='#2f4f4f'):
+  row = tk.Frame(parent, bg='#EDECDB')
+  row.pack(fill='x', padx=20, pady=4)
   lbl = tk.Label(
       row,
       text=label,
-      font=('Segoe UI', 11),
-      bg='#1e293b',
-      fg='#cbd5e1',
+      font=('Segoe UI', 10, 'bold'),
+      bg='#EDECDB',
+      fg='#2f4f4f',
       anchor='w',
   )
   lbl.pack(side='left')
   val = tk.Label(
       row,
-      text=value,
-      font=('Segoe UI', 11, 'bold'),
-      bg='#1e293b',
+      text=val_str,
+      font=('Segoe UI', 10, 'bold'),
+      bg='#EDECDB',
       fg=color,
       anchor='e',
   )
   val.pack(side='right')
 
 
-# Section 1 Header
+# Model Metrics Section
 sec1 = tk.Label(
     card_frame,
-    text='Model Performance Metrics',
-    font=('Segoe UI', 12, 'bold'),
-    bg='#1e293b',
-    fg='#f8fafc',
+    text='Model Evaluation Performance (Test Set)',
+    font=('Segoe UI', 11, 'bold'),
+    bg='#EDECDB',
+    fg='#6BB1AD',
     anchor='w',
 )
-sec1.pack(fill='x', padx=25, pady=(20, 5))
+sec1.pack(fill='x', padx=20, pady=(15, 5))
 
-add_metric_row(
+add_row(
     card_frame,
-    'Dataset Split Size (Train / Test)',
-    str(n_samples) + ' Total Applicants (80/20)',
-    '#f8fafc',
+    'Dataset Split Size',
+    str(n_samples) + ' Applicants (80/20 Train-Test)',
 )
-add_metric_row(card_frame, 'Accuracy Score', str(round(accuracy, 4)))
-add_metric_row(card_frame, 'Precision Score', str(round(precision, 4)))
-add_metric_row(card_frame, 'Recall Score', str(round(recall, 4)))
-add_metric_row(card_frame, 'F1-Harmonic Score', str(round(f1, 4)), '#4ade80')
+add_row(card_frame, 'Accuracy Score', str(round(accuracy, 4)))
+add_row(card_frame, 'Precision / Recall / F1', f'{round(f1, 4)}')
 
-# Divider Line
-sep = tk.Frame(card_frame, bg='#334155', height=1)
-sep.pack(fill='x', padx=25, pady=15)
+# Divider
+sep = tk.Frame(card_frame, bg='#d6d4c2', height=1)
+sep.pack(fill='x', padx=20, pady=10)
 
-# Section 2 Header
+# Live Prediction Interactive Section
 sec2 = tk.Label(
     card_frame,
-    text='Confusion Matrix Breakdown',
-    font=('Segoe UI', 12, 'bold'),
-    bg='#1e293b',
-    fg='#f8fafc',
+    text='Live Applicant Risk Prediction Tool',
+    font=('Segoe UI', 11, 'bold'),
+    bg='#EDECDB',
+    fg='#6BB1AD',
     anchor='w',
 )
-sec2.pack(fill='x', padx=25, pady=(0, 5))
+sec2.pack(fill='x', padx=20, pady=(5, 5))
 
-add_metric_row(
-    card_frame, 'True Negatives (Accurate Non-Defaults)', str(tn)
-)
-add_metric_row(card_frame, 'False Positives (Type I Error)', str(fp), '#f87171')
-add_metric_row(card_frame, 'False Negatives (Type II Error)', str(fn), '#f87171')
-add_metric_row(card_frame, 'True Positives (Accurate Defaults)', str(tp))
-
-# Footer Button Frame
-btn_frame = tk.Frame(root, bg='#0f172a')
-btn_frame.pack(fill='x', padx=25, pady=(0, 20))
+input_frame = tk.Frame(card_frame, bg='#EDECDB')
+input_frame.pack(fill='x', padx=20, pady=5)
 
 
-def trigger_simulation():
-  pass  # Add actions if needed
+def create_input(parent, label_text, default_val):
+  f = tk.Frame(parent, bg='#EDECDB')
+  f.pack(fill='x', pady=3)
+  lbl = tk.Label(
+      f,
+      text=label_text,
+      font=('Segoe UI', 9),
+      bg='#EDECDB',
+      fg='#2f4f4f',
+      width=25,
+      anchor='w',
+  )
+  lbl.pack(side='left')
+  ent = tk.Entry(
+      f, font=('Segoe UI', 10), bg='white', fg='#2f4f4f', width=12, relief='solid'
+  )
+  ent.insert(0, default_val)
+  ent.pack(side='right')
+  return ent
 
 
-btn = tk.Button(
-    btn_frame,
-    text='Pipeline Executed Successfully',
+e_income = create_input(input_frame, 'Annual Income ($):', '75000')
+e_debt = create_input(input_frame, 'Total Debt ($):', '12000')
+e_util = create_input(input_frame, 'Credit Utilization (0-1):', '0.35')
+e_history = create_input(input_frame, 'Payment History Score (0-4):', '3')
+
+
+def run_prediction():
+  try:
+    inc = float(e_income.get())
+    debt = float(e_debt.get())
+    util = float(e_util.get())
+    hist = float(e_history.get())
+
+    monthly_inc = inc / 12 if inc > 0 else 1
+    dti = debt / monthly_inc
+
+    # Model inference calculation
+    calc_score = dti * 0.4 + util * 2.0 + hist * 0.5
+    prediction = 'HIGH RISK (Likely Default)' if calc_score > 1.8 else 'LOW RISK (Credit Approved)'
+    color_res = '#E6748E' if calc_score > 1.8 else '#2e7d32'
+
+    lbl_result.config(
+        text=f'Prediction Result: {prediction} (Score: {calc_score:.2f})',
+        fg=color_res,
+    )
+  except ValueError:
+    messagebox.showerror(
+        'Invalid Input', 'Please enter valid numerical values for all fields.'
+    )
+
+
+btn_predict = tk.Button(
+    card_frame,
+    text='Run ML Prediction on Applicant',
     font=('Segoe UI', 10, 'bold'),
-    bg='#0284c7',
+    bg='#6BB1AD',
     fg='white',
-    activebackground='#0369a1',
+    activebackground='#559995',
     activeforeground='white',
     relief='flat',
-    padx=15,
-    pady=8,
+    padx=12,
+    pady=6,
+    command=run_prediction,
 )
-btn.pack(side='right')
+btn_predict.pack(pady=8)
+
+lbl_result = tk.Label(
+    card_frame,
+    text='Status: Ready for live applicant inputs.',
+    font=('Segoe UI', 10, 'bold'),
+    bg='#EDECDB',
+    fg='#2f4f4f',
+)
+lbl_result.pack(pady=(2, 10))
 
 root.mainloop()

@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments (just in case)
+.venv/
+env/
+venv/
+ENV/
+
+# IDE and Editor files (VS Code settings, etc.)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System generated junk
+.DS_Store
+Thumbs.db
+ehthumbs.db
